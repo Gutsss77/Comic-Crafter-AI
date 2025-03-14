@@ -3,7 +3,9 @@ ComicCrafter AI is a generative AI based comic generator running locally on edge
 
 # Requirements
 - Download `Ollama`
-- Pull model from `Ollama` locally -> `gemma3:latest`
+- Install model from `Ollama` locally
+  - Model_name : `gemma3:latest`
+  - run this command on your terminal to pull model locally: `ollama pull {model_name}`
 
 # Run Application
 - First run the following command in your terminal to activate Ollama: `ollama list`
