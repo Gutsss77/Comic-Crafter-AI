@@ -17,7 +17,7 @@ ComicCrafter AI is a generative AI based comic generator running locally on edge
 - Install Dependencies:
     - Navigate to the Model directory where the require.txt file is located.
     - Install the required dependencies using:
-    - Run: `pip install -r ./Model/require.txt`
+    - Run: `pip install -r require.txt ` or `pip install -r ./Model/require.txt`
 
 # Run Application
 - Activate Ollama:
