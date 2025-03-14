@@ -9,8 +9,8 @@ st.title("Comic Generator App")
 st.write("This app generates comic book plots based on the title you provide.")
 
 # Get user input
-# input_text = st.text_input("Enter the title of your comic book:")
-input_text = "The Dark Knight"
+input_text = st.text_input("Enter the title of your comic book:")
+# input_text = "The Dark Knight"
 
 
 ###############################
