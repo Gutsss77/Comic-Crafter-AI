@@ -5,6 +5,7 @@ ComicCrafter AI is a generative AI based comic generator running locally on edge
 - To run ComicCrafter AI on your edge device, follow these steps:
 - Install Ollama:
     - Download Ollama for your operating system from [download](https://ollama.com/).
+    - Set up Ollama for your command line by its application.
     - Ollama will help you manage and run the generative models locally.
 
 - Install the Model Locally:
