@@ -1,7 +1,7 @@
 # Comic-Crafter-AI
 ComicCrafter AI is a generative AI based comic generator running locally on edge devices that generates a comic style story based on the input prompts given by the user.
 
-# Requirements
+# Requirements and Set-Up
 - To run ComicCrafter AI on your edge device, follow these steps:
 - Install Ollama:
     - Download Ollama for your operating system from [download](https://ollama.com/).
