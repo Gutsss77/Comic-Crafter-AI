@@ -15,6 +15,7 @@ ComicCrafter AI is a generative AI based comic generator running locally on edge
     - This command will pull the `gemma3:latest model`, which will be used to generate the comic-style story.
   
 - Install Dependencies:
+    - Create a new Python environment `python -m venv venv` and install the required dependencies using pip.
     - Navigate to the Model directory where the require.txt file is located.
     - Install the required dependencies using:
     - Run: `pip install -r require.txt ` or `pip install -r ./Model/require.txt`
