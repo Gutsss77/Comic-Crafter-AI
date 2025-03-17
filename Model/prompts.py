@@ -16,19 +16,18 @@ theme_prompt_template=(
     "5. Setting Details: Provide details about the setting, including the location, time period, and atmosphere.\n"
     "Ensure the output follows this exact format and contains no extra commentary.\n"
     "\n"
-    "Return the output in **strict Python dictionary format** like this:\n"
-    "{{\n"
-    "    'title': '{title}',\n"
-    "    'genre': '<genre>',\n"
-    "    'tone': '<tone>',\n"
-    "    'themes': ['<theme1>', '<theme2>',],\n"
-    "    'keywords': ['<keyword1>', '<keyword2>', '<keyword3>',],\n"
-    "    'setting': {{\n"
-    "        'location': '<location>',\n"
-    "        'time_period': '<time_period>',\n"
-    "        'atmosphere': '<atmosphere>'\n"
-    "    }}\n"
-    "}}\n"
+    "Return the output seperately in '**csv**' string format :\n"
+    '{{\n'
+    '    genre: <genre>,\n'
+    '    tone: <tone>,\n'
+    '    themes: [<theme1>, <theme2>,],\n'
+    '    keywords: [<keyword1>, <keyword2>, <keyword3>,],\n'
+    '    setting: {{\n'
+    '        location: <location>,\n'
+    '        time_period: <time_period>,\n'
+    '        atmosphere: <atmosphere>\n'
+    '    }}\n'
+    '}}'
 )
 
 theme_prompt = PromptTemplate(input_variables=['title'], template=theme_prompt_template)
@@ -46,6 +45,7 @@ theme_chain = LLMChain(
 
 plot_prompt_template=(
     "Based on the provided details for the comic book concept:\n "
+    "{title}\n"
     "{theme_data}\n"
     "Generate a structured plot outline. Follow this structure:\n"
     "- Five-Act Structure (\n"
@@ -57,24 +57,27 @@ plot_prompt_template=(
     ")\n"
     "- Major Conflicts"
     "- Key Locations (Important story settings)\n"
-    "Return the output in **strict Python dictionary format** like this:\n"
-    "{{\n"
-    "    'act_<act_number>': {{\n"
-    "        'summary': '<act_number_description>',\n"
-    "        'key_events': [\n"
-    "            '<event1>',\n"
-    "            '<event2>',\n"
-    "        ],\n"
-    "        'key_locations': [\n"
-    "            '<location1>',\n"
-    "            '<location2>',\n"
-    "        ],\n"
-    "        'conflict/others': '<conflict/others>'\n"
-    "       }}\n"
-    "}}\n"
+    "- Moral of the whole story that inflects and add value to the story and society\n"
+    "Ensure the output follows this exact format and contains no extra commentary.\n"
+    "\n"
+    "Return the output seperately in '**csv**' string format :\n"
+    '{{\n'
+    '    act_<act_number>: {{\n'
+    '        summary: <act_number_description>,\n'
+    '        key_events: ['
+    '            <event1>,\t'
+    '            <event2> '
+    '        ],\n'
+    '        key_locations: ['
+    '            <location1>,\t'
+    '            <location2> '
+    '        ],\n'
+    '        conflict/others: <conflict/others>\n'
+    '       }}\n'
+    '}}'
 )
 
-plot_prompt = PromptTemplate(input_variables=['theme_data'], template=plot_prompt_template)
+plot_prompt = PromptTemplate(input_variables=['title', 'theme_data'], template=plot_prompt_template)
 
 plot_output_parser = StrOutputParser()
 
@@ -90,6 +93,8 @@ char_promtp_template = (
     "- Goal: Generate dynamic characters with personalities, motivations, and relationships.\n "
     "\n"
     "## Input: \n "
+    "- Title : \n"
+    "{title}\n"
     "- Themes : \n "
     "{theme_data}\n "
     "- Structured Plot :  \n "
@@ -102,44 +107,45 @@ char_promtp_template = (
     "- Inter-character Relationships Mapping\n"
     "\n"
     "---"
+    "Ensure the output follows this exact format and contains no extra commentary.\n"
     "\n"
-    "Return the output in **strict Python dictionary format** like this:\n"
-    "{{\n"
-    "  'Char_<character_number>': {{\n"
-    "      'name': '<Character Name>',\n"
-    "      'role': '<Protagonist / Antagonist / Supporting>',\n"
-    "      'age': '<Age or Age Range>',\n"
-    "      'appearance': {{\n"
-    "        'hair': '<Hair description>',\n"
-    "        'eyes': '<Eye description>',\n"
-    "        'clothing': '<Clothing style>',\n"
-    "        'unique_features': ['<Scars, tattoos, robotic limbs, etc.>']\n"
-    "           }},\n"
-    "      'personality': {{\n"
-    "        'traits': ['<Key traits like Brave, Cunning, Impulsive>'],\n"
-    "        'internal_conflicts': ['<Emotional struggles, doubts, or traumas>'],\n"
-    "        'speech_pattern': {{\n"
-    "          'style': '<Formal, sarcastic, cryptic, etc.>',\n"
-    "          'common_phrases': ['<Repeated phrases for consistency>']\n"
-    "                   }}\n"
-    "           }},\n"
-    "      'strengths': ['<Unique skills like Hacking, Combat Mastery>'],\n"
-    "      'weaknesses': ['<Character flaws like Arrogance, Fear of Isolation>'],\n"
-    "      'motivation': {{\n"
-    "        'primary': '<Main driving force - e.g., Rescue mission, Revenge>',\n"
-    "        'secondary': '<Additional goal or desire for added depth>'\n"
-    "           }},\n"
-    "      'relationships': {{\n"
-    "        '<Character 1>': '<Relationship type - e.g., Mentor, Rival, Trusted Ally>',\n"
-    "        '<Character 2>': '<Relationship type with context>',\n"
-    "        'notes': ['<Key events that shaped this relationship>']\n"
-    "           }},\n"
-    "      'introduction_moment': {{\n"
-    "        'scene': '<Scene number>',\n"
-    "        'description': '<How this character is first introduced to the audience>'\n"
-    "           }}\n"
-    "    }}\n"
-    "}}\n"
+    "Return the output seperately in '**csv**' string format :\n"
+    '{{\n'
+    '  Char_<character_number>: {{\n'
+    '      name: <Character Name>,\n'
+    '      role: <Protagonist / Antagonist / Supporting>,\n'
+    '      age: <Age or Age Range>,\n'
+    '      appearance: {{\n'
+    '        hair: <Hair description>,\n'
+    '        eyes: <Eye description>,\n'
+    '        clothing: <Clothing style>,\n'
+    '        unique_features: [<feature_decription_1>, <feature_decription_2>,]\n'
+    '           }},\n'
+    '      personality: {{\n'
+    '        traits: [<Key_traits_1>, <Key_traits_2>],\n'
+    '        internal_conflicts: [<Emotional struggles, doubts, or traumas>,],\n'
+    '        speech_pattern: {{\n'
+    '          style: <Formal, sarcastic, cryptic, etc.>,\n'
+    '          common_phrases: [<Repeated phrases for consistency>,]\n'
+    '                   }}\n'
+    '           }},\n'
+    '      strengths: [<Unique skills like Hacking, Combat Mastery>,],\n'
+    '      weaknesses: [<Character flaws like Arrogance, Fear of Isolation>,],\n'
+    '      motivation: {{\n'
+    '        primary: <Main driving force - e.g., Rescue mission, Revenge>,\n'
+    '        secondary: <Additional goal or desire for added depth>\n'
+    '           }},\n'
+    '      relationships: {{\n'
+    '        <Character 1>: <Relationship type - e.g., Mentor, Rival, Trusted Ally>,\n'
+    '        <Character 2>: <Relationship type with context>,\n'
+    '        notes: [<Key events that shaped this relationship>]\n'
+    '           }},\n'
+    '      introduction_moment: {{\n'
+    '        scene: <Scene number>,\n'
+    '        description: <How this character is first introduced to the audience>\n'
+    '           }}\n'
+    '    }}\n'
+    '}}'
 )
 
 char_prompt = PromptTemplate(input_variables=['theme_data','plot_data'], template=char_promtp_template)

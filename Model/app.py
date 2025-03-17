@@ -1,6 +1,7 @@
 import streamlit as st
 from prompts import *
 import ast
+import json
 
 #-----------------------------Working Functions------------------------------
 
@@ -15,21 +16,28 @@ def generate_content(input):
 def clean_data(data):
     start_python = data.find("```python")
     start_json = data.find("```json")
+    start_csv = data.find("```csv")
     end = data.rfind("```")
-    if start_json == -1:
+    if start_json == -1 and start_csv == -1:
         try:
             cleaned_data= data.strip("```python").strip("```").strip()
             return cleaned_data
         except Exception as e:
             st.error(f"Cleaning error occurred. Please try again.\n{e}")
-    elif start_python == -1:
+    elif start_python == -1 and start_csv == -1:
         try:
             cleaned_data= data.strip("```json").strip("```").strip()
             return cleaned_data
         except Exception as e:
             st.error(f"Cleaning error occurred. Please try again.\n{e}")
+    elif start_json == -1 and start_python == -1:
+        try:
+            cleaned_data= data.strip("```csv").strip("```").strip()
+            return cleaned_data
+        except Exception as e:
+            st.error(f"Cleaning error occurred. Please try again.\n{e}")
     else:
-        return None
+        return data
 
 #---
 
@@ -37,10 +45,14 @@ def clean_data(data):
 def convert_to_dict(comic_element_data):
     # st.write(theme_output)
     response = comic_element_data
+    # first try is for python dictionary
     try:
         # cleaning the data
         clean_response = clean_data(response)   # string
         python_dic = ast.literal_eval(clean_response)
+        # corrected_string = response.replace('"', r'\"')
+        # st.write(response)
+        # python_dic = ast.literal_eval(response)
         return python_dic
     except Exception as e:
         st.error(f"Conversion error occurred. Please try again.\n{e}")
@@ -124,3 +136,51 @@ if st.button("Generate Comic Plot"):
     except Exception as e:
         st.error(f"App error occurred. Please try again.\n{e}")
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# ----------------------------- Extra's---------------------------
+        # # if python dictionary fails, try to convert to json
+        # try:
+        #     # response = response.replace("'","\"").strip()   # to remove single quotes (for csv data)
+        #     clean_response = clean_data(response)   # string
+        #     st.write(clean_response)
+        #     st.markdown(type(clean_response))
+        #     python_dic = json.loads(clean_response)
+        #     return python_dic    
+        # except Exception as e:
+        #     st.error(f"Conversion error occurred. Please try again.\n{e}")
