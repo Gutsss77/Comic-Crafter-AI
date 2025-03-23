@@ -1,4 +1,6 @@
+streamlit
+langchain-huggingface
 langchain
 langchain_community
 langchain_core
-streamlit
+transformers

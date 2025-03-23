@@ -1,7 +1,7 @@
 from langchain_core.prompts import PromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 from langchain.chains import SequentialChain, LLMChain
-from llm import text_llm
+from llm import hf_text_model
 
 #-------------------------------------Chain Definitions-------------------------------------
 
@@ -35,7 +35,7 @@ theme_prompt = PromptTemplate(input_variables=['title'], template=theme_prompt_t
 theme_output_parser = StrOutputParser()
 
 theme_chain = LLMChain(
-    llm=text_llm,
+    llm=hf_text_model,
     prompt=theme_prompt,
     output_parser=theme_output_parser,
     output_key="theme_data"
@@ -82,7 +82,7 @@ plot_prompt = PromptTemplate(input_variables=['title', 'theme_data'], template=p
 plot_output_parser = StrOutputParser()
 
 plot_chain = LLMChain(
-    llm=text_llm,
+    llm=hf_text_model,
     prompt=plot_prompt,
     output_parser=plot_output_parser,
     output_key="plot_data"
@@ -153,7 +153,7 @@ char_prompt = PromptTemplate(input_variables=['theme_data','plot_data'], templat
 char_output_parser = StrOutputParser()
 
 char_chain = LLMChain(
-    llm=text_llm,
+    llm=hf_text_model,
     prompt=char_prompt,
     output_parser=char_output_parser,
     output_key="character_data"
@@ -214,57 +214,3 @@ gen_seq_chain = SequentialChain(
     #     }
     # }"
     # ```}"
-
-
-
-
-
-
-    # "    'act_2': {{\n"
-    # "        'summary': '<act2_description>',\n"
-    # "        'key_events': [\n"
-    # "            '<event1>',\n"
-    # "            '<event2>',\n"
-    # "        ],\n"
-    # "        'key_locations': [\n"
-    # "            '<location1>',\n"
-    # "            '<location2>',\n"
-    # "        ],\n"
-    # "        'conflict/others': '<conflict/others>'\n"
-    # "       }},\n"
-    # "    'act_3': {{\n"
-    # "        'summary': '<act3_description>',\n"
-    # "        'key_events': [\n"
-    # "            '<event1>',\n"
-    # "            '<event2>',\n"
-    # "        ],\n"
-    # "        'key_locations': [\n"
-    # "            '<location1>',\n"
-    # "            '<location2>',\n"
-    # "        ],\n"
-    # "        'conflict/others': '<conflict/others>'\n"
-    # "       }},\n"
-    # "    'act_4': {{\n"
-    # "        'summary': '<act4_description>',\n"
-    # "        'key_events': [\n"
-    # "            '<event1>',\n"
-    # "            '<event2>',\n"
-    # "        ],\n"
-    # "        'key_locations': [\n"
-    # "            '<location1>',\n"
-    # "            '<location2>',\n"
-    # "        ],\n"
-    # "        'conflict/others': '<conflict/others>'\n"
-    # "       }},\n"
-    # "    'act_5': {{\n"
-    # "        'summary': '<act5_description>',\n"
-    # "        'key_events': [\n"
-    # "            '<event1>',\n"
-    # "            '<event2>',\n"
-    # "        ],\n"
-    # "        'key_locations': [\n"
-    # "            '<location1>',\n"
-    # "            '<location2>',\n"
-    # "        ],\n"
-    # "        'conflict/others': '<conflict/others>'\n"
-    # "       }}\n"

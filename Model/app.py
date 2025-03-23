@@ -1,5 +1,5 @@
 import streamlit as st
-from prompts import *
+from prompts import gen_seq_chain
 import ast
 import json
 
