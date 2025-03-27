@@ -34,3 +34,10 @@ EXPOSE 8501
 
 # Command to run the Streamlit app (app.py is inside the Model folder)
 CMD ["streamlit", "run", "Model/app.py"]
+
+
+# Build the Docker image
+# docker build -t comiccrafterai .
+
+# Run the Docker container
+# docker run --name comic_container -p 8501:8501 -v ${pwd}:/app comiccrafterai
