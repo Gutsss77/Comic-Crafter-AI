@@ -4,3 +4,5 @@ langchain
 langchain_community
 langchain_core
 transformers
+torch>=1.11.0
+sentence-transformers==3.4.1
